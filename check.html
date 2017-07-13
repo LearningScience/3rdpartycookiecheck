@@ -1,0 +1,21 @@
+<p>Third party cookies are <span id="result"/></p>
+<script>
+  var messageRecieved = false;
+  var receiveMessage = function (evt) {
+    messageRecieved = true;
+    if (evt.data === 'ls-3pc-unsupported') {
+      document.getElementById('result').innerHTML = 'not supported';
+    } else if (evt.data === 'ls-3pc-supported') {
+      document.getElementById('result').innerHTML = 'supported';
+    }
+  };
+  window.addEventListener("message", receiveMessage, false);
+
+  // If message not received within 5 seconds, assume unsupported
+  setTimeout(function() {
+    if (messageRecieved === false) {
+      document.getElementById('result').innerHTML = 'not supported';
+    }
+  }, 10000)
+</script>
+<iframe src="https://learningscience.github.io/3rdpartycookiecheck/start.html" style="display:none" />
